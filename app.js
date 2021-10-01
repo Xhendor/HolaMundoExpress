@@ -6,7 +6,7 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger_output.json')
 var sqlite3 = require('sqlite3').verbose()
 
-const port=5000
+const PORT = process.env.PORT || 5000
 
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -68,6 +68,6 @@ app.get('/pagina',(req,res) => {
 
 })
 
-app.listen(port,()=>{
+app.listen(PORT,()=>{
     console.log('Ejemplo de aplicación escuchando en http://localhost:3000')
 })
