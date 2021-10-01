@@ -6,7 +6,7 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger_output.json')
 var sqlite3 = require('sqlite3').verbose()
 
-const port=3000
+const port=5000
 
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
