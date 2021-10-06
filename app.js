@@ -73,7 +73,7 @@ app.get('/pagina',(req,res) => {
 
 
 app.get('/postgres',(req,res) => {
-
+    db.connect()
 db.one("SELECT $1 AS value", 123)
     .then(function (data) {
         console.log("DATA:", data.value);
