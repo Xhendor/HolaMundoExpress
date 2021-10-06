@@ -7,7 +7,7 @@ const swaggerDocument = require('./swagger_output.json')
 var sqlite3 = require('sqlite3').verbose()
 const {Pool} = require("pg");
 const pool = new Pool({
-    connectionString: 'postgres://nmjfcyduzmwzke:587c1691cd45e5abd32c3719680280454ddaf450f97acbc8d5132b5719a1c555@ec2-52-204-213-254.compute-1.amazonaws.com:5432/d3kv627bou2k9c?ssl=true',
+    connectionString: 'postgres://nmjfcyduzmwzke:587c1691cd45e5abd32c3719680280454ddaf450f97acbc8d5132b5719a1c555@ec2-52-204-213-254.compute-1.amazonaws.com:5432/d3kv627bou2k9c',
     ssl: {
     rejectUnauthorized: false
     }
@@ -78,7 +78,7 @@ app.get('/pagina',(req,res) => {
 
 
 app.get('/postgres',(req,res) => {
-    
+
     pool.query(`SELECT * FROM Users;`, (err, res) => {
         if (err) {
             console.log("Error - Failed to select all from Users");
