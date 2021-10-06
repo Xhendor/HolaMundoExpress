@@ -8,7 +8,7 @@ var sqlite3 = require('sqlite3').verbose()
 const {Pool} = require("pg");
 const { Console } = require('console')
 const pool = new Pool({
-    connectionString: 'postgres://nmjfcyduzmwzke:587c1691cd45e5abd32c3719680280454ddaf450f97acbc8d5132b5719a1c555@ec2-52-204-213-254.compute-1.amazonaws.com:5432/d3kv627bou2k9c',
+    connectionString: '',
     ssl: {
     rejectUnauthorized: false
     }
