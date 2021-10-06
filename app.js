@@ -6,6 +6,7 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger_output.json')
 var sqlite3 = require('sqlite3').verbose()
 const {Pool} = require("pg");
+const { Console } = require('console')
 const pool = new Pool({
     connectionString: 'postgres://nmjfcyduzmwzke:587c1691cd45e5abd32c3719680280454ddaf450f97acbc8d5132b5719a1c555@ec2-52-204-213-254.compute-1.amazonaws.com:5432/d3kv627bou2k9c',
     ssl: {
@@ -78,17 +79,26 @@ app.get('/pagina',(req,res) => {
 
 
 app.get('/postgres',(req,res) => {
+    var arr=[]
+    let user= {
+        FirstName: "Jaime",
+        LastName: "Salazar",
+    }
+    const result = await client.query({
+        rowMode: 'array',
+        text: 'SELECT * FROM Users;',
+      })
 
-    pool.query(`SELECT * FROM Users;`, (err, res) => {
-        if (err) {
-            console.log("Error - Failed to select all from Users");
-            console.log(err);
-        }
-        else{
-            console.log(res.rows);
-        }
-    });
-    
+     const length= result.rows.length
+
+     for (let i = 0; i < length; i++) {
+        console.log(result.rows[i]['FirstName'])
+        console.log(result.rows[i]['LastName'])
+        arr.push({FirstName: result.rows[i]['FirstName'],
+        LastName: result.rows[i]['LastName']})
+      }
+      
+      res.json(arr)
 
 })
 
