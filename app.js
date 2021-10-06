@@ -5,9 +5,14 @@ const bodyParser = require("body-parser")
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocument = require('./swagger_output.json')
 var sqlite3 = require('sqlite3').verbose()
-var pgp = require("pg-promise")({});
-var db = pgp("postgres://nmjfcyduzmwzke:587c1691cd45e5abd32c3719680280454ddaf450f97acbc8d5132b5719a1c555@ec2-52-204-213-254.compute-1.amazonaws.com:5432/d3kv627bou2k9c?ssl=true");
-
+const {Pool} = require("pg");
+const pool = new Pool({
+    connectionString: 'postgres://nmjfcyduzmwzke:587c1691cd45e5abd32c3719680280454ddaf450f97acbc8d5132b5719a1c555@ec2-52-204-213-254.compute-1.amazonaws.com:5432/d3kv627bou2k9c?ssl=true',
+    ssl: {
+    rejectUnauthorized: false
+    }
+   });
+   
 const PORT = process.env.PORT || 5000
 
 
@@ -73,14 +78,17 @@ app.get('/pagina',(req,res) => {
 
 
 app.get('/postgres',(req,res) => {
-    db.connect()
-db.one("SELECT $1 AS value", 123)
-    .then(function (data) {
-        console.log("DATA:", data.value);
-    })
-    .catch(function (error) {
-        console.log("ERROR:", error);
+    
+    pool.query(`SELECT * FROM Users;`, (err, res) => {
+        if (err) {
+            console.log("Error - Failed to select all from Users");
+            console.log(err);
+        }
+        else{
+            console.log(res.rows);
+        }
     });
+    
 
 })
 
